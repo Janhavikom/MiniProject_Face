@@ -1,0 +1,66 @@
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+	body{
+		margin: 0;
+		padding: 0;
+		background-color: #7cdf91;
+	}
+
+	.main-top-div{
+		padding: 5px;
+		background-color: #575959;
+		text-align: center;
+	}
+	h2{
+		color: white;
+		font-family: 'Poppins', sans-serif;
+	}
+
+	.main-div-buttons{
+		padding-top: 20px;
+		text-align: center;
+	}
+
+	input{
+		padding: 10px;
+		border-radius: 5px;
+		border: none;
+		background-color: #1f3b97;
+		color: white;
+		cursor: pointer;
+	}
+
+	.img-div{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+
+			<div class="main-top-div">
+            <h2 class="mt-5">Face Detection and Recognition System</h2>
+		</div>
+			<form method="post" action="{{ url_for('tasks') }}">
+				<div class="main-div-buttons">
+			<!-- <input type="submit" value="Stop/Start" name="stop" /> -->
+			<input type="submit" value="Capture Image" name="click"/>
+			<input type="submit" value="Check Emotion" name="emotion"/>
+			<!-- <input type="submit" value="Grey" name="grey" />
+			<input type="submit" value="Negative" name="neg" /> -->
+			<input type="submit" value="Face Only" name="face" />
+			<!-- <input type="submit" value="Start/Stop Recording" name="rec" /> -->
+		</div>
+			</form>
+			<div class="img-div">
+            <img src="{{ url_for('video_feed') }}" height="80%">
+		</div>
+			
+        </div>
+    </div>
+</div>
+</body>
