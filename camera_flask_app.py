@@ -4,7 +4,7 @@ import datetime, time
 import os, sys
 import numpy as np
 from threading import Thread
-
+# import face_recognition
 
 global capture,rec_frame, grey, switch, neg, face, rec, out 
 capture=0
@@ -13,6 +13,7 @@ neg=0
 face=0
 switch=1
 rec=0
+emotion=0
 
 #make shots directory to save pics
 try:
@@ -63,15 +64,45 @@ def detect_face(frame):
 
 def gen_frames():  # generate frame by frame from camera
     global out, capture,rec_frame
+    
     while True:
         success, frame = camera.read() 
+        face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+        # cascPath = sys.argv[1]
+        # faceCascade = cv2.CascadeClassifier(cascPath)
         if success:
             if(face):                
                 frame= detect_face(frame)
-            if(grey):
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            if(neg):
-                frame=cv2.bitwise_not(frame)    
+            if(emotion):
+                    # convert to gray scale of each frames
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+  
+    # Detects faces of different sizes in the input image
+                faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+  
+                for (x,y,w,h) in faces:
+        # To draw a rectangle in a face 
+                    cv2.rectangle(frame,(x,y),(x+w,y+h),(255,255,0),2) 
+                        # roi_gray = gray[y:y+h, x:x+w]
+                        # roi_color = frame[y:y+h, x:x+w]
+                    
+                    cv2.imshow('img',frame)
+  
+            # if(grey):
+            #     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            # if(emotion):
+            #     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+            #     faces = faceCascade.detectMultiScale(
+            #         gray,
+            #         scaleFactor=1.1,
+            #         minNeighbors=5,
+            #         minSize=(30, 30),
+            #         flags=cv2.cv.CV_HAAR_SCALE_IMAGE
+            #     )
+            #     for (x, y, w, h) in faces:
+            #         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+               
             if(capture):
                 capture=0
                 now = datetime.datetime.now()
@@ -112,9 +143,9 @@ def tasks():
         if request.form.get('click') == 'Capture Image':
             global capture
             capture=1
-        elif  request.form.get('grey') == 'Grey':
-            global grey
-            grey=not grey
+        elif  request.form.get('emotion') == 'Check Emotion':
+            global emotion
+            emotion=not emotion
         elif  request.form.get('grey') == 'Grey':
             global grey
             grey=not grey
