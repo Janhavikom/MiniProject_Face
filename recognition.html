@@ -1,0 +1,94 @@
+
+  <style>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+	body{
+		margin: 0;
+		padding: 0;
+		background-color: #7cdf91;
+	}
+
+	.main-top-div{
+		padding: 5px;
+		background-color: #575959;
+		text-align: center;
+	}
+	h2{
+		color: white;
+		font-family: 'Poppins', sans-serif;
+	}
+
+	.main-div-buttons{
+		padding-top: 20px;
+		text-align: center;
+	}
+
+	input{
+		padding: 10px;
+		border-radius: 5px;
+		border: none;
+		background-color: #1f3b97;
+		color: white;
+		cursor: pointer;
+		margin-right:30px;
+		width:150px;
+	}
+
+	.img-div{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		
+		
+	}
+	.check{
+	display: flex;
+	margin-left:250px;
+}
+	
+</style>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+
+			<div class="main-top-div">
+            <h2 class="mt-5">Face Detection and Recognition System</h2>
+		</div>
+		<div class="check">
+		    <form method="post" action="/">
+			<div class="main-div-buttons">
+			<input type="submit" value="Detect Faces" name="face" />
+			</div>
+			</form>
+			<form method="post" action="/expression/">
+				<div class="main-div-buttons">
+			<!-- <input type="submit" value="Stop/Start" name="stop" /> -->
+			
+			   
+			<input type="submit" value="Check Emotion" name="emotion"/>
+			</div>
+			</form>
+			<form method="post" action="/genderage/">
+			<div class="main-div-buttons">
+			<input type="submit" value="Age-Gender" name="gender" />
+			</div>
+			</form>
+			<form method="post" action="/recognition/">
+			<div class="main-div-buttons">
+			<input type="submit" value="Recognition" name="recognition" />
+			</div>
+			</form>
+			
+			</div>
+			<!-- <input type="submit" value="Start/Stop Recording" name="rec" /> -->
+		</div>
+			
+			<div class="img-div">
+            <img src="{{ url_for('recognition_feed') }}" height="400px">
+		</div>
+			
+        </div>
+    </div>
+</div>
+</body>
